@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "my_lib",
+    "examples/rust_demo",
+]
+resolver = "2"
