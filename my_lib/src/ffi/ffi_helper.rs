@@ -1,3 +1,4 @@
+use crate::core::engine::Engine;
 use std::borrow::Cow;
 use std::ffi::{c_char, CStr, CString};
 
@@ -40,4 +41,8 @@ impl ToCString for String {
     fn to_cstring(&self) -> CString {
         self.as_str().to_cstring()
     }
+}
+
+pub(crate) fn ref_engine<'a>(engine: *const Engine) -> &'a Engine {
+    unsafe { &*engine }
 }

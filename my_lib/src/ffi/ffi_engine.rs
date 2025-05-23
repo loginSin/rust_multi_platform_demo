@@ -2,6 +2,8 @@ use crate::core::engine::Engine;
 use crate::core::engine_builder::EngineBuilder;
 use crate::ffi::enums::ffi_engine_error::FfiEngineError;
 use crate::ffi::ffi_engine_builder_param::FfiEngineBuilderParam;
+use crate::ffi::ffi_helper::ref_engine;
+use std::ffi::c_int;
 
 #[no_mangle]
 pub extern "C" fn ffi_create_engine_builder(
@@ -38,4 +40,9 @@ pub extern "C" fn ffi_engine_builder_build(
         *out_engine = Box::into_raw(Box::new(engine));
     }
     FfiEngineError::Success
+}
+
+#[no_mangle]
+pub extern "C" fn ffi_engine_add_int(engine: *mut Engine, a: c_int, b: c_int) -> c_int {
+    ref_engine(engine).add_int(a, b)
 }
