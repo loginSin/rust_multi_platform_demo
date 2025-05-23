@@ -1,13 +1,17 @@
-use crate::models::user_info::UserInfo;
+use crate::core::engine_builder::EngineBuilder;
+use crate::core::engine_config::EngineConfig;
+use crate::core::models::user_info::UserInfo;
 
 #[derive(Default)]
 pub struct Engine {
     cur_user_info: UserInfo,
+    config: EngineConfig,
 }
 
 impl Engine {
-    pub fn default() -> Engine {
+    pub fn new(config: EngineConfig) -> Engine {
         Engine {
+            config,
             ..Default::default()
         }
     }

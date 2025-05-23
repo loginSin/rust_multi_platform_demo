@@ -15,7 +15,7 @@ impl UserInfo {
     }
 
     pub fn get_name(&self) -> &String {
-        &self.name
+        &self.id
     }
 
     pub fn get_age(&self) -> i32 {

@@ -1,4 +1,4 @@
-use my_lib::engine::Engine;
+use my_lib::core::engine::Engine;
 
 fn main() {
     let engine = Engine::default();
