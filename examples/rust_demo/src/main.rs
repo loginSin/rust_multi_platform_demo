@@ -1,7 +1,7 @@
-use my_lib::add;
+use my_lib::engine::Engine;
 
 fn main() {
-    println!("Hello, world!");
-    let sum = add(1, 3);
-    println!("sum = {}", sum);
+    let engine = Engine::default();
+    let sum = engine.add_int(1, 3);
+    assert_eq!(sum, 4);
 }
