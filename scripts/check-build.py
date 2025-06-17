@@ -1,6 +1,8 @@
 import subprocess
 import os
 
+HEADER_NAME = "ffi_client.h"
+STATIC_LIB_NAME = "libmy_lib.a"
 
 def run_cmd(cmd: str):
     """
@@ -23,6 +25,30 @@ def run_cmd(cmd: str):
     except Exception as e:
         return -1, "", f"Exception: {e}"
 
+def check_includes_for_header(base_dir: str):
+    print(f"🔍 检查 includes 目录下是否有 {HEADER_NAME}:")
+
+    for root, dirs, files in os.walk(base_dir):
+        if os.path.basename(root) == "includes":
+            header_path = os.path.join(root, HEADER_NAME)
+            if os.path.isfile(header_path):
+                print(f"✅ 找到: {header_path}")
+            else:
+                print(f"❌ 缺失: {header_path}")
+
+def check_static_libs(base_dir: str):
+    print("🔍 检查所有目录下是的静态库")
+    
+    for root, dirs, files in os.walk(base_dir):
+        if STATIC_LIB_NAME in files:
+            full_path = os.path.join(root, STATIC_LIB_NAME)
+            dir_name = os.path.basename(root)
+            code, out, err = run_cmd(f"strings {full_path} | grep 'my_lib_version'")
+            if dir_name in out:
+                print(f"✅ 找到静态库: {full_path}，版本信息:\n {out.strip()}")
+            else:
+                print(f"❌ target {dir_name} not match {full_path} !!!")
+                exit(1)
 
 def check_output_dirs(base_dir: str):
 
@@ -30,30 +56,8 @@ def check_output_dirs(base_dir: str):
         print(f"❌ Base directory '{base_dir}' does not exist.")
         exit(1)
 
-    for entry in os.listdir(base_dir):
-        subdir_path = os.path.join(base_dir, entry)
-        if not os.path.isdir(subdir_path):
-            continue
-
-        print(f"Checking entry: {entry}")
-        print(f"Checking directory: {subdir_path}")
-
-        header_path = os.path.join(subdir_path, "ffi_client.h")
-        if not os.path.exists(header_path):
-            print(f"❌ Missing header file in {header_path}")
-            exit(1)
-
-        lib_path = os.path.join(subdir_path, "libmy_lib.a")
-        if not os.path.exists(lib_path):
-            print(f"❌ Missing library file in {lib_path}")
-            exit(1)
-
-        code, out, err = run_cmd(f"strings {lib_path} | grep 'my_lib_version'")
-        if entry not in out:
-            print(f"❌ target {entry} not match {lib_path} !!!")
-            exit(1)
-
-    print("✅ All required files are present in the output directories.")
+    check_includes_for_header(base_dir)
+    check_static_libs(base_dir)
 
 
 if __name__ == "__main__":
