@@ -79,10 +79,7 @@ impl HttpClient {
     }
 }
 
-async fn unwrap_resp(
-    resp: Result<Response, Error>,
-    url: &str,
-) -> Result<(u16, String), HttpError> {
+async fn unwrap_resp(resp: Result<Response, Error>, url: &str) -> Result<(u16, String), HttpError> {
     match resp {
         Ok(resp) => {
             let code = resp.status();
