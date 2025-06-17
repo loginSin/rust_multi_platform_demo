@@ -6,8 +6,12 @@ pub struct UserInfo {
 }
 
 impl UserInfo {
-    pub fn new(id: String, name: String, age: i32) -> UserInfo {
-        UserInfo { id, name, age }
+    pub fn new(id: &str, name: &str, age: i32) -> UserInfo {
+        UserInfo {
+            id: id.to_string(),
+            name: name.to_string(),
+            age,
+        }
     }
 
     pub fn get_id(&self) -> &String {

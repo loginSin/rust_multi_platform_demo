@@ -1,1 +1,1 @@
-mod ffi_user_info;
+pub(crate) mod ffi_user_info;
