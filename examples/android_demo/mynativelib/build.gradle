@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
 android {
@@ -45,4 +46,18 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
 
     implementation 'org.javassist:javassist:3.29.0-GA'
+}
+
+// 代码格式化执行 ： ./gradlew spotlessApply
+spotless {
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    java {
+        target '**/*.java'
+        googleJavaFormat().aosp()
+    }
 }
