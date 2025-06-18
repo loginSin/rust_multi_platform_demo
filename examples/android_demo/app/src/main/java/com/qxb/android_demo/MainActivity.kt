@@ -12,13 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.qxb.android_demo.ui.theme.Android_demoTheme
-import com.qxb.mynativelib.internal.jni.NativeLib
+import com.qxb.mynativelib.CoreClient
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        var str = NativeLib().stringFromJNI()
+        var sum = CoreClient.getInstance().addInt(1,3)
+        println("MainActivity qxb addInt $sum")
+        var str = CoreClient.getInstance().string;
+        println("MainActivity qxb string $str")
         setContent {
             Android_demoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

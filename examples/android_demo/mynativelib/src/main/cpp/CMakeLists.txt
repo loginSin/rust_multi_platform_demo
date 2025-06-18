@@ -24,14 +24,32 @@ project("mynativelib")
 # System.loadLibrary() and pass the name of the library defined here;
 # for GameActivity/NativeActivity derived applications, the same library name must be
 # used in the AndroidManifest.xml file.
+
+# 自动拼接路径，无需手写 ABI 名
+set(MY_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libs/${ANDROID_ABI}")
+set(MY_LIB_PATH "${MY_LIB_DIR}/libmy_lib.a")
+
+# 声明导入静态库
+add_library(my_lib STATIC IMPORTED)
+set_target_properties(my_lib PROPERTIES IMPORTED_LOCATION ${MY_LIB_PATH})
+
+# 添加头文件
+include_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/includes
+)
+
 add_library(${CMAKE_PROJECT_NAME} SHARED
         # List C/C++ source files with relative paths to this CMakeLists.txt.
-        mynativelib.cpp)
+        jni_entry.cpp
+        NativeClient.cpp
+)
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
 # build script, prebuilt third-party libraries, or Android system libraries.
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
+        my_lib
         android
         log)
