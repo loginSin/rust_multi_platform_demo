@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.qxb.android_demo.ui.theme.Android_demoTheme
-import com.qxb.mynativelib.NativeLib
+import com.qxb.mynativelib.internal.jni.NativeLib
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

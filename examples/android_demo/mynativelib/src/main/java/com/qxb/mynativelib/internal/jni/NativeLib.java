@@ -1,4 +1,4 @@
-package com.qxb.mynativelib;
+package com.qxb.mynativelib.internal.jni;
 
 public class NativeLib {
 
