@@ -8,7 +8,8 @@ bash scripts/build-mac.sh
 bash scripts/build-ios.sh
 bash scripts/build-android.sh
 bash scripts/build-ohos.sh
-
+bash scripts/build-windows.sh
+bash scripts/build-linux.sh
 
 python scripts/check-build.py
 

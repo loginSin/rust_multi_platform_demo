@@ -45,7 +45,7 @@ def check_static_libs(base_dir: str):
             dir_name = os.path.basename(root)
             code, out, err = run_cmd(f"strings {full_path} | grep 'my_lib_version'")
             if dir_name in out:
-                print(f"✅ 找到静态库: {full_path}，版本信息:\n {out.strip()}")
+                print(f"✅ 找到静态库: {full_path}，版本信息: {out.strip()}")
             else:
                 print(f"❌ target {dir_name} not match {full_path} !!!")
                 exit(1)
